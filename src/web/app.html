@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard — Email Cleaner</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1d4ed8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1017" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header app-header">
+  <div class="container">
+    <a class="brand" href="/app"><span class="brand-mark" aria-hidden="true">✦</span><span>Email Cleaner</span></a>
+    <nav class="app-nav" aria-label="Sections">
+      <a href="#clean" data-tab-link="clean" aria-current="page">Clean</a>
+      <a href="#mailboxes" data-tab-link="mailboxes">Mailboxes</a>
+      <a href="#rules" data-tab-link="rules">Rules</a>
+      <a href="#history" data-tab-link="history">History</a>
+      <a href="#settings" data-tab-link="settings">Settings</a>
+      <a href="/admin" id="admin-link" class="hidden">Admin</a>
+    </nav>
+    <span class="spacer"></span>
+    <button class="theme-toggle" type="button" aria-label="Switch colour theme" data-theme-toggle>◐</button>
+    <span class="user-chip">
+      <span id="user-email" class="muted">…</span>
+      <span class="avatar" id="user-avatar" aria-hidden="true">?</span>
+    </span>
+    <button class="btn btn-ghost btn-sm" id="logout" type="button">Sign out</button>
+  </div>
+</header>
+
+<main id="main" class="container app-main">
+
+  <div class="note note-warn hidden" id="global-notice" role="status"></div>
+
+  <!-- CLEAN ============================================================== -->
+  <section data-tab="clean">
+    <div class="panel card">
+      <header>
+        <h2>Clean a mailbox</h2>
+        <p>Pick what to remove. Everything runs as a preview first — you see the count and a sample before anything moves.</p>
+      </header>
+
+      <div class="note note-warn hidden" id="no-mailbox">
+        <strong>No mailbox connected yet.</strong>
+        Go to <a href="#mailboxes" data-tab-link="mailboxes">Mailboxes</a> to connect one.
+      </div>
+
+      <div class="field">
+        <label for="account-select">Mailbox</label>
+        <select id="account-select"></select>
+      </div>
+
+      <h3 style="font-size:var(--step-0);margin:1.5rem 0 0.35rem">Sections</h3>
+      <p class="hint" style="margin-bottom:0.75rem">
+        <strong>Empty all</strong> clears a whole section, ignoring the filters below.
+        Tick boxes instead to combine sections with keywords and dates.
+        Sent, Drafts and Archive are protected and never selected by default.
+      </p>
+      <div class="sections" id="sections"></div>
+      <div class="cluster" style="margin-top:0.85rem">
+        <button class="btn btn-sm" type="button" id="select-default-sections">Select suggested</button>
+        <button class="btn btn-sm btn-danger" type="button" id="empty-selected">Empty ticked sections completely</button>
+      </div>
+
+      <h3 style="font-size:var(--step-0);margin:1.75rem 0 0.75rem">Keywords</h3>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));--grid-gap:0.85rem">
+        <div class="field" style="margin:0">
+          <label for="keywords">Keywords (comma separated)</label>
+          <input type="text" id="keywords" placeholder="black friday, unsubscribe, webinar">
+        </div>
+        <div class="field" style="margin:0">
+          <label for="keyword-scope">Search in</label>
+          <select id="keyword-scope">
+            <option value="anywhere">Anywhere (subject, sender, body)</option>
+            <option value="subject">Subject only</option>
+            <option value="from">Sender only</option>
+            <option value="subject_or_from">Subject or sender</option>
+          </select>
+        </div>
+        <div class="field" style="margin:0">
+          <label for="keyword-match">Match</label>
+          <select id="keyword-match">
+            <option value="any">Any keyword</option>
+            <option value="all">All keywords</option>
+          </select>
+        </div>
+      </div>
+
+      <h3 style="font-size:var(--step-0);margin:1.75rem 0 0.75rem">Narrow it down</h3>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));--grid-gap:0.85rem">
+        <div class="field" style="margin:0">
+          <label for="from">From contains</label>
+          <input type="text" id="from" placeholder="@newsletters.example">
+        </div>
+        <div class="field" style="margin:0">
+          <label for="older-than">Older than (days)</label>
+          <input type="number" id="older-than" min="0" placeholder="365">
+        </div>
+        <div class="field" style="margin:0">
+          <label for="larger-than">Larger than (MB)</label>
+          <input type="number" id="larger-than" min="0" step="0.1" placeholder="5">
+        </div>
+        <div class="field" style="margin:0">
+          <label for="read-state">Read state</label>
+          <select id="read-state">
+            <option value="any">Any</option>
+            <option value="read">Read only</option>
+            <option value="unread">Unread only</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:0.85rem">
+        <label for="exclude-keywords">Never delete if it contains</label>
+        <input type="text" id="exclude-keywords" placeholder="invoice, receipt, ticket">
+      </div>
+
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));--grid-gap:0.85rem;align-items:end">
+        <div class="field" style="margin:0">
+          <label for="mode">Delete mode</label>
+          <select id="mode">
+            <option value="trash">Move to Trash (reversible)</option>
+            <option value="permanent">Delete permanently (no undo)</option>
+          </select>
+        </div>
+        <div class="field" style="margin:0">
+          <label class="checkbox"><input type="checkbox" id="exclude-starred" checked><span>Keep starred / flagged mail</span></label>
+        </div>
+      </div>
+
+      <div id="explain" class="hidden" style="margin-top:1.1rem"></div>
+      <div class="note note-danger hidden" id="clean-error" role="alert" style="margin-top:0.9rem"></div>
+
+      <div class="cluster" style="margin-top:1.2rem">
+        <button class="btn" type="button" id="explain-btn">Check what this matches</button>
+        <button class="btn btn-primary" type="button" id="preview-btn">Preview deletion</button>
+      </div>
+    </div>
+
+    <div class="panel card hidden" id="job-card">
+      <header><h2>Preview</h2></header>
+      <div id="job-body"></div>
+    </div>
+  </section>
+
+  <!-- MAILBOXES ========================================================== -->
+  <section data-tab="mailboxes" class="hidden">
+    <div class="panel card">
+      <header>
+        <h2>Connected mailboxes</h2>
+        <p>Each provider needs a slightly different setup. Expand one to see exactly what to do.</p>
+      </header>
+      <div class="note note-danger hidden" id="account-error" role="alert"></div>
+      <div id="accounts"></div>
+      <div id="providers" style="margin-top:1.25rem"></div>
+    </div>
+  </section>
+
+  <!-- RULES ============================================================== -->
+  <section data-tab="rules" class="hidden">
+    <div class="panel card">
+      <header>
+        <h2>Saved rules</h2>
+        <p>Save the current filter from the Clean tab as a rule, optionally on a schedule. Scheduled rules can only move mail to Trash.</p>
+      </header>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));--grid-gap:0.85rem;align-items:end">
+        <div class="field" style="margin:0">
+          <label for="rule-name">Rule name</label>
+          <input type="text" id="rule-name" placeholder="Weekly promotions sweep">
+        </div>
+        <div class="field" style="margin:0">
+          <label for="rule-cron">Schedule (cron, UTC) — optional</label>
+          <input type="text" id="rule-cron" placeholder="0 3 * * 1">
+        </div>
+        <div class="field" style="margin:0">
+          <label class="checkbox"><input type="checkbox" id="rule-auto"><span>Run without asking me</span></label>
+        </div>
+      </div>
+      <div class="note note-danger hidden" id="rule-error" role="alert" style="margin-top:0.8rem"></div>
+      <div class="cluster" style="margin-top:0.8rem">
+        <button class="btn" type="button" id="save-rule">Save current filter as a rule</button>
+      </div>
+      <div id="rules" style="margin-top:1.25rem"></div>
+    </div>
+  </section>
+
+  <!-- HISTORY ============================================================ -->
+  <section data-tab="history" class="hidden">
+    <div class="panel card">
+      <header><h2>History</h2><p>Every job you have run on this mailbox.</p></header>
+      <div id="history"></div>
+    </div>
+  </section>
+
+  <!-- SETTINGS =========================================================== -->
+  <section data-tab="settings" class="hidden">
+
+    <div class="panel card">
+      <header><h2>Your plan</h2><p>Usage is measured over a rolling 30-day window.</p></header>
+      <div class="cluster" style="margin-bottom:1.25rem">
+        <span class="badge badge-accent" id="plan-badge">Free</span>
+        <span class="muted" id="plan-tagline" style="font-size:var(--step--1)"></span>
+        <span class="spacer" style="flex:1"></span>
+        <a class="btn btn-sm btn-outline" href="/pricing">Compare plans</a>
+      </div>
+      <div class="grid grid-3" id="quota-meters"></div>
+    </div>
+
+    <div class="panel card">
+      <header>
+        <h2>Two-factor authentication</h2>
+        <p>With 2FA on, a stolen password alone cannot sign in to your account.</p>
+      </header>
+      <div class="note note-danger hidden" id="tfa-error" role="alert"></div>
+      <div class="note note-ok hidden" id="tfa-notice"></div>
+      <div id="tfa-body"></div>
+    </div>
+
+    <div class="panel card">
+      <header><h2>Password</h2><p>Changing your password does not sign you out of other devices.</p></header>
+      <div class="note note-danger hidden" id="pw-error" role="alert"></div>
+      <div class="note note-ok hidden" id="pw-notice"></div>
+      <form id="password-form">
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));--grid-gap:0.85rem">
+          <div class="field" style="margin:0">
+            <label for="current-password">Current password</label>
+            <input type="password" id="current-password" autocomplete="current-password" required>
+          </div>
+          <div class="field" style="margin:0">
+            <label for="new-password">New password</label>
+            <input type="password" id="new-password" autocomplete="new-password" minlength="10" required>
+          </div>
+        </div>
+        <div class="cluster" style="margin-top:0.9rem">
+          <button class="btn" type="submit">Change password</button>
+        </div>
+      </form>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-footer" style="padding-block:1.5rem">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>&copy; <span data-year>2026</span> Email Cleaner.</span>
+      <span class="cluster" style="--cluster-gap:1.25rem">
+        <a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/security">Security</a><a href="/">Home</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/config.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+/* ==========================================================================
+   Application shell — the signed-in experience and the admin console
+   ========================================================================== */
+
+.app-header { border-bottom: 1px solid var(--border); background: var(--bg-elevated); }
+.app-header .container { display: flex; align-items: center; gap: 1rem; height: var(--header-h); }
+.app-nav { display: flex; gap: 0.2rem; margin-left: 1rem; }
+.app-nav a {
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: var(--step--1);
+  font-weight: 550;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.app-nav a:hover { background: var(--surface-2); color: var(--text); }
+.app-nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); }
+.app-header .spacer { flex: 1; }
+
+.user-chip {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.3rem 0.35rem 0.3rem 0.7rem;
+  border: 1px solid var(--border); border-radius: var(--radius-full);
+  background: var(--surface); font-size: var(--step--1);
+}
+.avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: linear-gradient(140deg, var(--accent), #7c3aed);
+  color: #fff; display: grid; place-items: center;
+  font-size: 0.72rem; font-weight: 700; flex: none; text-transform: uppercase;
+}
+
+.app-main { padding-block: clamp(1.5rem, 4vw, 2.5rem); }
+.panel { margin-bottom: 1.25rem; }
+.panel > header { margin-bottom: 1rem; }
+.panel > header h2 { font-size: var(--step-1); }
+.panel > header p { font-size: var(--step--1); color: var(--text-muted); margin-top: 0.2rem; }
+
+.tabs { display: flex; gap: 0.25rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; overflow-x: auto; }
+.tabs button {
+  border: none; background: none; color: var(--text-muted);
+  padding: 0.65rem 0.9rem; font-size: var(--step--1); font-weight: 600;
+  border-bottom: 2px solid transparent; white-space: nowrap;
+}
+.tabs button:hover { color: var(--text); }
+.tabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Account rows */
+.account-row {
+  display: flex; align-items: center; gap: 0.85rem;
+  padding: 0.85rem 0; border-bottom: 1px solid var(--border);
+}
+.account-row:last-child { border-bottom: none; }
+.account-row .grow { flex: 1; min-width: 0; }
+.account-row .email { font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
+.account-row .meta { color: var(--text-muted); font-size: var(--step--1); }
+.provider-dot {
+  width: 32px; height: 32px; border-radius: 9px; flex: none;
+  display: grid; place-items: center; font-size: 14px; font-weight: 700;
+  background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted);
+}
+
+/* Section picker */
+.sections { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.6rem; }
+.section-tile {
+  display: flex; gap: 0.6rem; align-items: flex-start;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 0.7rem 0.8rem; background: var(--surface); cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.section-tile:hover { border-color: var(--border-strong); }
+.section-tile:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.section-tile { flex-direction: column; }
+.section-pick { display: flex; gap: 0.6rem; align-items: flex-start; cursor: pointer; width: 100%; }
+.section-tile input { margin-top: 0.22rem; flex: none; }
+.section-empty { align-self: flex-start; margin-top: 0.15rem; font-size: 0.75rem; padding: 0.25rem 0.55rem; }
+.section-tile:has(input:checked) .section-empty { border-color: var(--accent); }
+.section-tile .name { font-weight: 600; text-transform: capitalize; font-size: var(--step-0); }
+.section-tile .count { color: var(--text-muted); font-size: 0.78rem; line-height: 1.4; }
+
+/* Stats */
+.stat-row { display: flex; gap: 1.75rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat .value { font-size: var(--step-3); font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.05; }
+.stat .label { color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 650; }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; }
+.kpi { padding: 1rem 1.1rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.kpi .label { color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 650; }
+.kpi .value { font-size: var(--step-2); font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 0.2rem; line-height: 1.1; }
+.kpi .delta { font-size: var(--step--1); color: var(--text-muted); margin-top: 0.15rem; }
+
+/* Quota meters */
+.meter { display: grid; gap: 0.3rem; }
+.meter-head { display: flex; justify-content: space-between; font-size: var(--step--1); }
+.meter-head .k { color: var(--text-muted); }
+.meter-track { height: 6px; border-radius: 3px; background: var(--surface-2); overflow: hidden; border: 1px solid var(--border); }
+.meter-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.3s ease; }
+.meter-fill.warn { background: var(--warn-fg); }
+.meter-fill.full { background: var(--danger-fg); }
+
+progress { width: 100%; height: 8px; border-radius: 4px; overflow: hidden; }
+
+/* Two-factor */
+.qr-panel {
+  display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: start;
+}
+@media (max-width: 640px) { .qr-panel { grid-template-columns: 1fr; } }
+.qr-box {
+  width: 190px; padding: 10px; background: #fff;
+  border: 1px solid var(--border); border-radius: var(--radius);
+}
+.qr-box svg { width: 100%; height: auto; display: block; }
+.secret-box {
+  font-family: var(--font-mono); font-size: 0.95rem; letter-spacing: 0.05em;
+  padding: 0.65rem 0.8rem; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  word-break: break-all; user-select: all;
+}
+.codes-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.95rem;
+}
+.codes-grid span {
+  padding: 0.45rem 0.6rem; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  text-align: center; user-select: all;
+}
+
+/* Admin */
+.admin-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; font-size: var(--step--1); color: var(--text-muted); margin-top: 0.6rem; }
+.chart-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.legend-swatch { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+
+.filter-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 1rem; }
+.filter-bar input[type="search"] { max-width: 260px; }
+.filter-bar select { max-width: 160px; }
+
+.user-cell { display: flex; align-items: center; gap: 0.6rem; min-width: 0; }
+.user-cell .email { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-cell .sub { color: var(--text-muted); font-size: 0.75rem; }
+
+.drawer-backdrop {
+  position: fixed; inset: 0; background: rgb(0 0 0 / 0.45);
+  display: grid; place-items: end center; z-index: 200; padding: 0;
+}
+.drawer {
+  background: var(--bg-elevated); width: min(720px, 100%);
+  max-height: 88vh; overflow-y: auto;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border: 1px solid var(--border); border-bottom: none;
+  padding: 1.5rem;
+}
+@media (min-width: 720px) {
+  .drawer-backdrop { place-items: center; padding: 2rem; }
+  .drawer { border-radius: var(--radius-lg); border-bottom: 1px solid var(--border); }
+}
+.drawer header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+.drawer header h2 { font-size: var(--step-1); }
+
+.empty {
+  text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);
+  border: 1px dashed var(--border); border-radius: var(--radius);
+}
+.empty strong { display: block; color: var(--text); margin-bottom: 0.3rem; font-size: var(--step-0); }
+
+.spinner {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid var(--border-strong); border-top-color: var(--accent);
+  animation: spin 0.7s linear infinite; display: inline-block; vertical-align: -3px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supported Email Providers | Email Cleaner</title>
+<meta name="description" content="Works with Gmail, Outlook, Microsoft 365, Yahoo, iCloud, Mail.com, GMX, Zoho, Fastmail and any IMAP host — with setup steps for each.">
+<link rel="canonical" href="https://emailcleaner.xyz/providers">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<meta name="theme-color" content="#1d4ed8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1017" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Email Cleaner">
+<meta property="og:url" content="https://emailcleaner.xyz/providers">
+<meta property="og:title" content="Supported email providers — Email Cleaner">
+<meta property="og:description" content="Gmail, Outlook, Yahoo, iCloud, Mail.com and any IMAP mailbox, with exact setup steps for each.">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to connect an email mailbox to Email Cleaner",
+  "description": "Connect Gmail, Outlook, Yahoo, iCloud or any IMAP mailbox to Email Cleaner.",
+  "step": [
+    { "@type": "HowToStep", "name": "Choose your provider", "text": "Gmail and Outlook connect with OAuth. Everything else connects over IMAP with an app password." },
+    { "@type": "HowToStep", "name": "Generate an app password if needed", "text": "Yahoo, iCloud, AOL, Zoho and Fastmail require an app password generated in your provider's security settings." },
+    { "@type": "HowToStep", "name": "Enter your address", "text": "Server settings are discovered automatically from a built-in table and the Thunderbird autoconfig database." },
+    { "@type": "HowToStep", "name": "Test and connect", "text": "The credential is tested against the live server before the mailbox is saved." }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">✦</span><span>Email Cleaner</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">☰</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="/#features">Features</a>
+      <a href="/providers" aria-current="page">Providers</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/security">Security</a>
+      <button class="theme-toggle" type="button" aria-label="Switch colour theme" data-theme-toggle>◐</button>
+      <a class="btn btn-ghost" href="/login">Sign in</a>
+      <a class="btn btn-primary" href="/login?mode=register">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section-sm" style="padding-top:clamp(2.5rem,6vw,4rem)">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Providers</p>
+        <h1>One interface, every mailbox</h1>
+        <p>Three adapters cover the entire market: the Gmail API, Microsoft Graph, and IMAP for everything else. Each maps its own folders onto the same set of roles, so a rule you write once behaves the same everywhere.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+      <div class="grid grid-3">
+        <article class="card provider-card">
+          <div class="provider-head">
+            <h3>Gmail &amp; Workspace</h3>
+            <span class="badge badge-accent">OAuth</span>
+          </div>
+          <p class="muted" style="font-size:var(--step--1)">The strongest backend. Full-text body search runs on Google's servers, category folders map directly, and deletions go 1,000 messages per call.</p>
+          <ul class="setup-steps">
+            <li><span><strong>Click Connect</strong>Sign in with Google and approve the permission screen.</span></li>
+            <li><span><strong>Grant the whole request</strong>Unticking the Gmail permission connects the account but every clean then fails.</span></li>
+          </ul>
+          <p class="hint">Moves mail to Trash, recoverable for 30 days in Gmail. No password is ever shared with us.</p>
+        </article>
+
+        <article class="card provider-card">
+          <div class="provider-head">
+            <h3>Outlook &amp; Microsoft 365</h3>
+            <span class="badge badge-accent">OAuth</span>
+          </div>
+          <p class="muted" style="font-size:var(--step--1)">Covers outlook.com, hotmail.com, live.com and work accounts. Junk Email and Deleted Items map to the spam and trash roles.</p>
+          <ul class="setup-steps">
+            <li><span><strong>Click Connect</strong>Sign in with the Microsoft account you want cleaned.</span></li>
+            <li><span><strong>Accept consent</strong>Work accounts may need a one-time administrator approval.</span></li>
+          </ul>
+          <p class="hint">Outlook has no Promotions or Social categories, so those roles resolve to nothing — the preview says so rather than widening the search.</p>
+        </article>
+
+        <article class="card provider-card">
+          <div class="provider-head">
+            <h3>Everything else</h3>
+            <span class="badge badge-neutral">IMAP</span>
+          </div>
+          <p class="muted" style="font-size:var(--step--1)">Yahoo, iCloud, Mail.com, GMX, Zoho, Fastmail, AOL, Yandex and any other IMAP host. Server settings are discovered from your address.</p>
+          <ul class="setup-steps">
+            <li><span><strong>Generate an app password</strong>Most providers no longer accept your account password over IMAP.</span></li>
+            <li><span><strong>Enter your address</strong>Host and port are filled in automatically.</span></li>
+            <li><span><strong>Test and connect</strong>The credential is verified live before it is saved.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--bg-elevated);border-block:1px solid var(--border)">
+    <div class="container">
+      <div class="section-head">
+        <h2>Setup notes by provider</h2>
+        <p>The handful of providers with a step that catches people out.</p>
+      </div>
+      <div class="grid grid-2" style="--grid-gap:1.25rem">
+        <div class="card">
+          <h3 style="font-size:var(--step-1);margin-bottom:0.5rem">Yahoo Mail</h3>
+          <p class="muted" style="font-size:var(--step--1)">Yahoo stopped accepting account passwords over IMAP in 2024. Go to <strong>Yahoo Account Security → Generate app password</strong>, create one named "Email Cleaner", and paste the 16-character value.</p>
+          <p class="hint">Yahoo files junk under "Bulk Mail", which maps to the spam role automatically.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:var(--step-1);margin-bottom:0.5rem">Mail.com &amp; GMX</h3>
+          <p class="muted" style="font-size:var(--step--1)">IMAP is <strong>switched off by default</strong>. Open <strong>Settings → POP3 &amp; IMAP</strong>, tick "Enable access to this account via POP3 and IMAP", and save. Then connect with your normal password.</p>
+          <p class="hint">Skipping this step produces an authentication failure with no useful explanation from the server.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:var(--step-1);margin-bottom:0.5rem">iCloud</h3>
+          <p class="muted" style="font-size:var(--step--1)">An app-specific password is mandatory and two-factor authentication must already be on. Generate one at <strong>appleid.apple.com → Sign-In and Security → App-Specific Passwords</strong>.</p>
+          <p class="hint">Covers icloud.com, me.com and mac.com.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:var(--step-1);margin-bottom:0.5rem">AOL, Zoho, Fastmail, Yandex</h3>
+          <p class="muted" style="font-size:var(--step--1)">Create an app password in the provider's security settings whenever two-factor authentication is enabled. Fastmail: <strong>Settings → Privacy &amp; Security → App Passwords</strong>.</p>
+          <p class="hint">Providers that have not disabled basic authentication still accept a normal password.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:var(--step-1);margin-bottom:0.5rem">Anything not listed</h3>
+          <p class="muted" style="font-size:var(--step--1)">Type your address and connect. Settings come from a built-in table, then the Thunderbird autoconfig database covering thousands of domains, then a conventional guess — and the connection is always tested before saving.</p>
+          <p class="hint">If discovery gets it wrong, enter host, port and username manually.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:var(--step-1);margin-bottom:0.5rem">Proton Mail</h3>
+          <p class="muted" style="font-size:var(--step--1)">Proton has no public IMAP endpoint. It works only through Proton Mail Bridge running on the same machine as the service, which rules it out for our hosted version.</p>
+          <p class="hint">Self-hosting Email Cleaner alongside Bridge does work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>What differs between providers</h2>
+        <p>The app compiles your rule to whatever each provider speaks, and tells you in the preview which filters ran on the server and which ran locally.</p>
+      </div>
+      <div class="card card-flush">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Capability</th><th scope="col">Gmail</th><th scope="col">Microsoft</th><th scope="col">IMAP</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Full body keyword search</td><td class="yes">Server-side</td><td class="yes">Server-side</td><td class="yes">Server-side</td></tr>
+              <tr><td>Category folders (Promotions, Social…)</td><td class="yes">Yes</td><td class="no">Not available</td><td class="no">Not available</td></tr>
+              <tr><td>Date precision</td><td>Exact</td><td>Exact (re-checked)</td><td>Day, re-checked locally</td></tr>
+              <tr><td>Size filter</td><td class="yes">Yes</td><td class="no">Not exposed</td><td class="yes">Yes</td></tr>
+              <tr><td>Attachment filter</td><td class="yes">Yes</td><td class="yes">Yes</td><td>Checked locally</td></tr>
+              <tr><td>Results per keyword search</td><td>Unlimited</td><td>1,000, auto-split by date</td><td>Unlimited</td></tr>
+              <tr><td>Bulk delete batch size</td><td>1,000</td><td>20</td><td>200</td></tr>
+              <tr><td>Undo from Trash</td><td class="yes">Yes</td><td class="yes">Yes</td><td>Best effort</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="hint center" style="margin-top:1rem">Anything a provider cannot do server-side is re-checked locally before deletion — a weaker backend is slower, never less safe.</p>
+    </div>
+  </section>
+
+  <section class="section-sm" style="padding-bottom:clamp(3rem,8vw,6rem)">
+    <div class="container">
+      <div class="cta">
+        <h2>Connect your first mailbox</h2>
+        <p>The free plan covers one mailbox with no card required, and IMAP works immediately.</p>
+        <div class="cluster"><a class="btn btn-primary btn-lg" href="/login?mode=register">Get started</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>&copy; <span data-year>2026</span> Email Cleaner.</span>
+      <span class="cluster" style="--cluster-gap:1.25rem">
+        <a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/security">Security</a><a href="/">Home</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js" defer></script>
+</body>
+</html>

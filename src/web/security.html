@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security — Email Cleaner</title>
+<meta name="description" content="AES-256-GCM encryption at rest, OAuth where possible, two-factor authentication, preview-before-delete and a full audit log.">
+<link rel="canonical" href="https://emailcleaner.xyz/security">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1d4ed8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1017" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Email Cleaner">
+<meta property="og:url" content="https://emailcleaner.xyz/security">
+<meta property="og:title" content="Security — Email Cleaner">
+<meta property="og:description" content="Encryption, OAuth, two-factor authentication and the safety model behind every deletion.">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Security",
+  "url": "https://emailcleaner.xyz/security",
+  "dateModified": "2026-09-17",
+  "description": "Security practices for Email Cleaner: credential encryption, two-factor authentication and the deletion safety model.",
+  "publisher": { "@type": "Organization", "name": "Email Cleaner", "url": "https://emailcleaner.xyz/" }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">✦</span><span>Email Cleaner</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">☰</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="/#features">Features</a>
+      <a href="/providers">Providers</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/security" aria-current="page">Security</a>
+      <button class="theme-toggle" type="button" aria-label="Switch colour theme" data-theme-toggle>◐</button>
+      <a class="btn btn-ghost" href="/login">Sign in</a>
+      <a class="btn btn-primary" href="/login?mode=register">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section-sm" style="padding-top:clamp(2.5rem,6vw,4rem)">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Security</p>
+        <h1>A tool that deletes mail has to earn trust twice</h1>
+        <p>Once for holding the keys to your mailbox, and again for the irreversible thing it does with them. Here is exactly how both are handled.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+      <div class="grid grid-2">
+        <article class="card feature">
+          <div class="feature-icon" aria-hidden="true">🔑</div>
+          <h3>We prefer never to hold a password</h3>
+          <p>Gmail and Outlook connect by OAuth. We receive a scoped token, never your password, and you can revoke it from your Google or Microsoft account at any moment without involving us.</p>
+        </article>
+        <article class="card feature">
+          <div class="feature-icon" aria-hidden="true">🔒</div>
+          <h3>Credentials are encrypted, and bound to you</h3>
+          <p>OAuth refresh tokens and IMAP app passwords are encrypted with AES-256-GCM before storage. Your account identifier is mixed into the ciphertext as authenticated data, so a record lifted into another account simply fails to decrypt.</p>
+        </article>
+        <article class="card feature">
+          <div class="feature-icon" aria-hidden="true">📵</div>
+          <h3>Message content is never written down</h3>
+          <p>When a keyword rule needs the body of a message, that text is evaluated in memory and discarded. It is never stored, never logged and never leaves the process. Attachments are never opened at all.</p>
+        </article>
+        <article class="card feature">
+          <div class="feature-icon" aria-hidden="true">🧾</div>
+          <h3>Passwords are hashed, not encrypted</h3>
+          <p>Account passwords are stored as scrypt hashes with per-user salts. We cannot read them, recover them, or hand them to anyone.</p>
+        </article>
+        <article class="card feature">
+          <div class="feature-icon" aria-hidden="true">🔐</div>
+          <h3>Two-factor authentication</h3>
+          <p>Every account can enable TOTP with any authenticator app, backed by ten single-use recovery codes. With 2FA on, a stolen password alone cannot produce a session. Turning it off requires the password again.</p>
+        </article>
+        <article class="card feature">
+          <div class="feature-icon" aria-hidden="true">🚧</div>
+          <h3>Brute force gets slow, fast</h3>
+          <p>Failed sign-ins are recorded and rate-limited per account, with temporary lockout after repeated failures. Non-existent accounts are hashed anyway so response timing reveals nothing.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--bg-elevated);border-block:1px solid var(--border)">
+    <div class="container">
+      <div class="section-head">
+        <h2>The deletion safety model</h2>
+        <p>Most of the engineering here went into not deleting the wrong thing.</p>
+      </div>
+      <div class="card card-flush">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Guard</th><th scope="col">What it does</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Preview first</strong></td><td>Every job counts matches, breaks them down by folder and shows a sample before anything is touched. Deletion only starts when you confirm.</td></tr>
+              <tr><td><strong>Trash by default</strong></td><td>Deletions move mail to your provider's Trash. Permanent deletion is opt-in, refused for scheduled rules, and always warns that it cannot be undone.</td></tr>
+              <tr><td><strong>Recorded undo</strong></td><td>Every affected message id and its original folder is stored, so undo restores them precisely rather than guessing.</td></tr>
+              <tr><td><strong>Protected folders</strong></td><td>Sent, Drafts and Archive are never included unless you name them explicitly. "Clean everything" never means those.</td></tr>
+              <tr><td><strong>Starred excluded</strong></td><td>Starred and flagged mail is excluded from every query by default.</td></tr>
+              <tr><td><strong>No unbounded queries</strong></td><td>A rule with no folder, keyword, sender or date filter is refused outright rather than matching your whole mailbox.</td></tr>
+              <tr><td><strong>Large-job confirmation</strong></td><td>Jobs above the configured ceiling require a second, explicit acknowledgement.</td></tr>
+              <tr><td><strong>Never-delete lists</strong></td><td>Per-account sender and keyword lists that override any rule, however it was written.</td></tr>
+              <tr><td><strong>Proof required</strong></td><td>If a message cannot be <em>proven</em> to match — unknown date, unknown size, unknown flags — it is kept, not deleted.</td></tr>
+              <tr><td><strong>Audit log</strong></td><td>Every connect, preview, confirmation, deletion and undo is recorded with a timestamp.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-2" style="--grid-gap:2.5rem">
+        <div class="prose">
+          <h2 style="margin-top:0">Infrastructure</h2>
+          <ul>
+            <li>All traffic over HTTPS with HSTS; HTTP redirects permanently to HTTPS.</li>
+            <li>Strict Content-Security-Policy, <code>X-Frame-Options: DENY</code>, <code>nosniff</code> and a restrictive Permissions-Policy on every response.</li>
+            <li>The application binds to localhost only and is reachable solely through the reverse proxy.</li>
+            <li>It runs as an unprivileged system account with a read-only filesystem apart from its own data directory, with <code>NoNewPrivileges</code>, <code>PrivateTmp</code> and syscall restrictions.</li>
+            <li>Structured logs are scrubbed of anything matching a credential, token or password pattern before they are written.</li>
+            <li>Session cookies are <code>HttpOnly</code>, <code>SameSite=Lax</code> and <code>Secure</code> over HTTPS.</li>
+          </ul>
+        </div>
+        <div class="prose">
+          <h2 style="margin-top:0">Responsible disclosure</h2>
+          <p>If you find a vulnerability, please tell us before telling anyone else. Email <a href="mailto:security@emailcleaner.xyz">security@emailcleaner.xyz</a> with enough detail to reproduce it.</p>
+          <p>We will acknowledge within 3 working days, keep you updated, and credit you when the fix ships if you would like that. Please do not run automated scanners against the production service, access data that is not yours, or degrade the service for other users.</p>
+          <p>Machine-readable contact details are at <a href="/.well-known/security.txt">/.well-known/security.txt</a>.</p>
+          <div class="callout">
+            <p>We have no bug bounty programme yet, but we will always act on a credible report and acknowledge the reporter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+      <div class="cta">
+        <h2>Read the fine print</h2>
+        <p>The privacy policy sets out exactly what we access and how long we keep it, including our Google API Limited Use disclosure.</p>
+        <div class="cluster">
+          <a class="btn btn-primary" href="/privacy">Privacy Policy</a>
+          <a class="btn btn-outline" href="/terms">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>&copy; <span data-year>2026</span> Email Cleaner.</span>
+      <span class="cluster" style="--cluster-gap:1.25rem">
+        <a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/security">Security</a><a href="/">Home</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js" defer></script>
+</body>
+</html>

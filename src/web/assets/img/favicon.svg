@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Email Cleaner">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2f6bff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#g)"/>
+  <path d="M14 22h36v20a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V22Z" fill="#fff" opacity=".95"/>
+  <path d="M14 22l18 13 18-13" fill="none" stroke="#2f6bff" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="47" cy="19" r="9" fill="#fff"/>
+  <path d="M42.5 19l3.2 3.4 6-6.8" fill="none" stroke="#16a34a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in — Email Cleaner</title>
+<meta name="description" content="Sign in to Email Cleaner.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://emailcleaner.xyz/login">
+<meta name="theme-color" content="#1d4ed8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1017" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">✦</span><span>Email Cleaner</span></a>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="/pricing">Pricing</a>
+      <a href="/security">Security</a>
+      <button class="theme-toggle" type="button" aria-label="Switch colour theme" data-theme-toggle>◐</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="container auth-shell">
+  <div class="auth-card">
+
+    <!-- Step 1: credentials ------------------------------------------------>
+    <section class="card" id="step-credentials">
+      <h1 id="auth-title">Welcome back</h1>
+      <p class="muted" id="auth-subtitle">Sign in to clean your mailboxes.</p>
+
+      <div class="note note-danger hidden" id="auth-error" role="alert"></div>
+      <div class="note note-ok hidden" id="auth-notice"></div>
+
+      <form id="auth-form" novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" autocomplete="username" required autocapitalize="none" spellcheck="false">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required minlength="10">
+          <p class="hint hidden" id="password-hint">At least 10 characters. A passphrase of a few words works well.</p>
+        </div>
+
+        <div class="field hidden" id="terms-field">
+          <label class="checkbox">
+            <input type="checkbox" id="accept-terms">
+            <span>I agree to the <a href="/terms" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+          </label>
+        </div>
+
+        <div id="captcha-mount" class="field hidden"></div>
+
+        <button class="btn btn-primary btn-block" type="submit" id="auth-submit">Sign in</button>
+      </form>
+
+      <p class="auth-alt">
+        <span id="auth-alt-text">New here?</span>
+        <button class="btn btn-ghost btn-sm" type="button" id="auth-toggle">Request access</button>
+      </p>
+    </section>
+
+    <!-- Request access: shown instead of sign-up while the service is invite-only -->
+    <section class="card hidden" id="step-interest">
+      <h1>Request access</h1>
+      <p class="muted">Email Cleaner is invite-only while we finish provider verification. Tell us about your mailbox and we will get back to you.</p>
+
+      <div class="note note-danger hidden" id="interest-error" role="alert"></div>
+
+      <form id="interest-form" novalidate>
+        <div class="field">
+          <label for="i-name">Your name</label>
+          <input type="text" id="i-name" autocomplete="name" maxlength="120">
+        </div>
+        <div class="field">
+          <label for="i-email">Email address <span class="muted">(required)</span></label>
+          <input type="email" id="i-email" autocomplete="email" required autocapitalize="none" spellcheck="false">
+        </div>
+        <div class="field">
+          <label for="i-company">Company <span class="muted">(optional)</span></label>
+          <input type="text" id="i-company" autocomplete="organization" maxlength="160">
+        </div>
+        <div class="field">
+          <label for="i-phone">Phone <span class="muted">(optional)</span></label>
+          <input type="text" id="i-phone" autocomplete="tel" maxlength="40">
+        </div>
+        <div class="field">
+          <label for="i-plan">Which plan interests you?</label>
+          <select id="i-plan">
+            <option value="undecided">Not sure yet</option>
+            <option value="free">Free &mdash; one mailbox</option>
+            <option value="pro">Pro &mdash; five mailboxes, scheduled rules</option>
+            <option value="business">Business &mdash; 25 mailboxes</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="i-mailboxes">How many mailboxes need cleaning?</label>
+          <select id="i-mailboxes">
+            <option value="">Prefer not to say</option>
+            <option value="1">Just one</option>
+            <option value="2-5">2 to 5</option>
+            <option value="6-25">6 to 25</option>
+            <option value="25+">More than 25</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="i-message">Anything else? <span class="muted">(optional)</span></label>
+          <textarea id="i-message" rows="3" maxlength="2000" placeholder="Which provider do you use? Roughly how much mail are you dealing with?"></textarea>
+        </div>
+
+        <!-- Honeypot: hidden from people, irresistible to bots. -->
+        <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px">
+          <label for="i-website">Website</label>
+          <input type="text" id="i-website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit" id="interest-submit">Request access</button>
+      </form>
+
+      <p class="auth-alt">
+        <span>Already have an account?</span>
+        <button class="btn btn-ghost btn-sm" type="button" id="interest-back">Sign in</button>
+      </p>
+    </section>
+
+    <!-- Thank-you state -->
+    <section class="card hidden" id="step-thanks">
+      <h1>Thanks &mdash; we have your request</h1>
+      <p class="muted" id="thanks-text">We will email you as soon as a place opens up.</p>
+      <div class="cluster" style="margin-top:1.25rem">
+        <a class="btn btn-primary" href="/">Back to the site</a>
+        <a class="btn btn-outline" href="/pricing">See the plans</a>
+      </div>
+    </section>
+
+    <!-- Step 2: two-factor -------------------------------------------------->
+    <section class="card hidden" id="step-mfa">
+      <h1>Two-step verification</h1>
+      <p class="muted">Enter the 6-digit code from your authenticator app.</p>
+
+      <div class="note note-danger hidden" id="mfa-error" role="alert"></div>
+
+      <form id="mfa-form" novalidate>
+        <div class="field">
+          <label for="mfa-code" id="mfa-label">Authentication code</label>
+          <input type="text" id="mfa-code" class="input otp-input" inputmode="numeric" autocomplete="one-time-code"
+                 pattern="[0-9]*" maxlength="6" required aria-describedby="mfa-hint">
+          <p class="hint" id="mfa-hint">The code changes every 30 seconds.</p>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit" id="mfa-submit">Verify and sign in</button>
+      </form>
+
+      <p class="auth-alt">
+        <button class="btn btn-ghost btn-sm" type="button" id="use-backup">Use a recovery code instead</button>
+      </p>
+      <p class="auth-alt">
+        <button class="btn btn-ghost btn-sm" type="button" id="mfa-cancel">Back to sign in</button>
+      </p>
+    </section>
+
+    <p class="auth-legal">
+      Protected by two-factor authentication and rate limiting.
+      <a href="/security">How we keep your mailbox safe</a>.
+    </p>
+  </div>
+</main>
+
+<footer class="site-footer" style="padding-block:1.5rem">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>&copy; <span data-year>2026</span> Email Cleaner.</span>
+      <span class="cluster" style="--cluster-gap:1.25rem">
+        <a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/">Home</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/config.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/auth.js" defer></script>
+</body>
+</html>

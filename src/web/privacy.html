@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Email Cleaner</title>
+<meta name="description" content="What Email Cleaner accesses, why, how long we keep it and how to delete it — including our Google API Limited Use disclosure.">
+<link rel="canonical" href="https://emailcleaner.xyz/privacy">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1d4ed8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1017" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Email Cleaner">
+<meta property="og:url" content="https://emailcleaner.xyz/privacy">
+<meta property="og:title" content="Privacy Policy — Email Cleaner">
+<meta property="og:description" content="What we access, why, how long we keep it, and how to delete it. Includes our Google API Services Limited Use disclosure.">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Privacy Policy",
+  "url": "https://emailcleaner.xyz/privacy",
+  "dateModified": "2026-09-17",
+  "publisher": { "@type": "Organization", "name": "Email Cleaner", "url": "https://emailcleaner.xyz/" }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">✦</span><span>Email Cleaner</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">☰</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="/#features">Features</a>
+      <a href="/providers">Providers</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/security">Security</a>
+      <button class="theme-toggle" type="button" aria-label="Switch colour theme" data-theme-toggle>◐</button>
+      <a class="btn btn-ghost" href="/login">Sign in</a>
+      <a class="btn btn-primary" href="/login?mode=register">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="section">
+  <div class="container">
+    <div class="legal-layout">
+
+      <aside class="toc" aria-label="On this page">
+        <h2>On this page</h2>
+        <ol>
+          <li><a href="#summary">Summary</a></li>
+          <li><a href="#who">Who we are</a></li>
+          <li><a href="#what">What we collect</a></li>
+          <li><a href="#why">How we use it</a></li>
+          <li><a href="#google-limited-use">Google API disclosure</a></li>
+          <li><a href="#microsoft">Microsoft Graph</a></li>
+          <li><a href="#imap">IMAP providers</a></li>
+          <li><a href="#never">What we never do</a></li>
+          <li><a href="#retention">Retention &amp; deletion</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#sharing">Sharing &amp; subprocessors</a></li>
+          <li><a href="#rights">Your rights</a></li>
+          <li><a href="#transfers">International transfers</a></li>
+          <li><a href="#children">Children</a></li>
+          <li><a href="#changes">Changes</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ol>
+      </aside>
+
+      <article class="prose">
+        <h1>Privacy Policy</h1>
+        <div class="legal-meta">
+          <span><strong>Effective:</strong> 17 September 2026</span>
+          <span><strong>Last updated:</strong> 17 September 2026</span>
+          <span><strong>Version:</strong> 1.0</span>
+        </div>
+
+        <h2 id="summary">1. Summary</h2>
+        <div class="callout">
+          <p><strong>Email Cleaner deletes email you tell it to delete. That is the entire purpose, and it is the only reason we ever touch your mailbox.</strong></p>
+          <p>We do not sell your data. We do not use it for advertising. We do not use it to train AI or machine-learning models. We do not let humans read your email. We keep the smallest amount of information needed to show you a preview and to undo a deletion, and we delete it on request.</p>
+        </div>
+        <p>This policy explains exactly what we access, why, how long we keep it and how to remove it. Defined terms used here have the meanings given in our <a href="/terms">Terms of Service</a>.</p>
+
+        <h2 id="who">2. Who we are</h2>
+        <p>Email Cleaner ("Email Cleaner", "we", "us") operates the service at <code>https://emailcleaner.xyz</code>. We act as the data controller for account information, and as a data processor acting on your instructions when we access the contents of a mailbox you have connected.</p>
+        <p>For any privacy question, contact <a href="mailto:privacy@emailcleaner.xyz">privacy@emailcleaner.xyz</a>.</p>
+
+        <h2 id="what">3. What we collect</h2>
+
+        <h3>3.1 Account information</h3>
+        <ul>
+          <li><strong>Email address</strong> — to identify your account and send service notices.</li>
+          <li><strong>Password</strong> — stored only as a scrypt hash with a per-user salt. We cannot recover it.</li>
+          <li><strong>Two-factor secret and recovery codes</strong> — the TOTP secret is encrypted at rest; recovery codes are stored as hashes.</li>
+          <li><strong>Display name</strong>, if you choose to set one.</li>
+          <li><strong>Sign-in metadata</strong> — timestamps, sign-in counts and IP addresses of authentication attempts, kept for security and abuse prevention.</li>
+        </ul>
+
+        <h3>3.2 Mailbox credentials</h3>
+        <ul>
+          <li><strong>For Gmail and Microsoft</strong> — OAuth access and refresh tokens. We never receive, see or store your provider password.</li>
+          <li><strong>For IMAP providers</strong> — the server hostname, port, username and the app password you supply, encrypted with AES-256-GCM and cryptographically bound to your account record.</li>
+        </ul>
+
+        <h3>3.3 Mailbox data</h3>
+        <p>When you run a cleaning job we access your mailbox to find messages that match the rule you wrote. Specifically:</p>
+        <ul>
+          <li><strong>Folder and label names and message counts</strong> — so you can choose what to clean.</li>
+          <li><strong>Message metadata for matching messages</strong> — provider message identifier, folder, subject, sender, recipient, date, size and flags such as starred or unread.</li>
+          <li><strong>Message body text</strong> — <em>only</em> when your rule requires a keyword search that the provider cannot perform server-side. This content is held in memory for the duration of the check and is <strong>never written to disk, logged or retained</strong>.</li>
+        </ul>
+        <p>We never access, copy or store attachments.</p>
+
+        <h3>3.4 What we store after a job</h3>
+        <p>For each message a job deletes, we retain the provider message identifier, its original folder, subject, sender, date and size. This exists for exactly one reason: so that the undo function can put those specific messages back. It is deleted when the job history is deleted.</p>
+
+        <h3>3.5 Technical logs</h3>
+        <p>We keep operational logs containing timestamps, request paths, error messages and IP addresses. Logs are automatically scrubbed of credentials, tokens and passwords before they are written, and are retained for up to 30 days.</p>
+
+        <h2 id="why">4. How we use your information</h2>
+        <p>We use the information above only to:</p>
+        <ul>
+          <li>authenticate you and keep your account secure;</li>
+          <li>connect to the mailboxes you choose and list their folders;</li>
+          <li>find messages matching the rules you write, and show you a preview before acting;</li>
+          <li>delete those messages when you confirm, and restore them if you undo;</li>
+          <li>run scheduled rules you have created;</li>
+          <li>enforce plan limits, prevent abuse, and diagnose faults;</li>
+          <li>send transactional messages about your account or a job.</li>
+        </ul>
+        <p>Our legal bases, where the UK/EU GDPR applies, are performance of a contract (operating the service), legitimate interests (security and abuse prevention) and consent (where you grant mailbox access, which you may withdraw at any time).</p>
+
+        <h2 id="google-limited-use">5. Google API Services disclosure</h2>
+        <div class="callout">
+          <p><strong>Email Cleaner's use and transfer of information received from Google APIs to any other app will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener" target="_blank">Google API Services User Data Policy</a>, including the Limited Use requirements.</strong></p>
+        </div>
+        <p>Concretely, for Google user data obtained through the Gmail API:</p>
+        <ul>
+          <li>We use it <strong>only</strong> to provide and improve the mailbox-cleaning features you have asked for — finding the messages your rule describes, showing you a preview, deleting them on your confirmation and restoring them on undo.</li>
+          <li>We do <strong>not</strong> transfer it to third parties except as necessary to provide the service, to comply with applicable law, or as part of a merger or acquisition with notice to you.</li>
+          <li>We do <strong>not</strong> use it for serving advertising, and we do not allow it to be used for advertising by anyone else.</li>
+          <li>We do <strong>not</strong> use it to develop, improve or train generalised or non-personalised AI or machine-learning models.</li>
+          <li>We do <strong>not</strong> allow humans to read it, except where we have your affirmative agreement for a specific support request, where it is necessary for security purposes such as investigating abuse, to comply with applicable law, or where the data is aggregated and anonymised.</li>
+        </ul>
+
+        <h3>5.1 Scopes we request and why</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Scope</th><th scope="col">Why it is needed</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><code>gmail.modify</code></td>
+                <td>To list labels and their message counts, search for messages matching your rule, read the minimum metadata needed to show a preview, and move matched messages to Trash. This is the narrowest scope that permits moving mail to Trash in bulk.</td>
+              </tr>
+              <tr>
+                <td><code>https://mail.google.com/</code></td>
+                <td>Requested <em>only</em> where a deployment enables permanent deletion, which bypasses Trash. Google offers no narrower scope for that operation. If permanent deletion is not enabled, this scope is not requested.</td>
+              </tr>
+              <tr>
+                <td><code>userinfo.email</code></td>
+                <td>To identify which mailbox was connected, so it can be labelled correctly in your account.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>You can review and revoke Email Cleaner's access at any time at <a href="https://myaccount.google.com/permissions" rel="noopener" target="_blank">myaccount.google.com/permissions</a>. Revoking access immediately stops all access; we delete the stored tokens when we next detect the revocation, or immediately if you disconnect the mailbox in Email Cleaner.</p>
+
+        <h2 id="microsoft">6. Microsoft Graph data</h2>
+        <p>For Outlook.com and Microsoft 365 mailboxes we use Microsoft Graph with delegated permissions only, meaning we can act solely within the mailbox of the signed-in user who granted consent:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Permission</th><th scope="col">Why it is needed</th></tr></thead>
+            <tbody>
+              <tr><td><code>Mail.ReadWrite</code></td><td>To list mail folders and counts, search for matching messages, read the metadata shown in the preview, move messages to Deleted Items, and move them back on undo.</td></tr>
+              <tr><td><code>User.Read</code></td><td>To read the signed-in user's address so the connected mailbox can be labelled.</td></tr>
+              <tr><td><code>offline_access</code></td><td>To refresh access without asking you to sign in again for every job, including scheduled ones.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>We apply the same commitments to Microsoft data as to Google data: it is used only to deliver the features you requested, never sold, never used for advertising and never used to train AI models. You can revoke access at <a href="https://myaccount.microsoft.com/privacy" rel="noopener" target="_blank">myaccount.microsoft.com</a>.</p>
+
+        <h2 id="imap">7. IMAP providers</h2>
+        <p>For Yahoo, iCloud, Mail.com, GMX, Zoho, Fastmail, AOL and other IMAP mailboxes, you supply an app password — a single-purpose credential issued by your provider that you can revoke without changing your main password. We strongly recommend app passwords over account passwords, and most providers now require them.</p>
+        <p>The credential is encrypted with AES-256-GCM using a key held only by the server, with your account identifier bound into the ciphertext as additional authenticated data. A credential record copied out of the database cannot be decrypted against any other account. We connect only over TLS, on port 993 by default.</p>
+
+        <h2 id="never">8. What we never do</h2>
+        <ul>
+          <li>We never sell, rent or trade your personal data or mailbox content.</li>
+          <li>We never use your mailbox content for advertising or profiling.</li>
+          <li>We never use your mailbox content to train AI or machine-learning models.</li>
+          <li>We never read your mail for any purpose other than executing the rule you wrote.</li>
+          <li>We never store message bodies or attachments.</li>
+          <li>We never delete anything you have not previewed and confirmed, except where you have explicitly enabled an auto-confirm scheduled rule, which can only move mail to Trash.</li>
+        </ul>
+
+        <h2 id="retention">9. Retention and deletion</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Data</th><th scope="col">Retention</th></tr></thead>
+            <tbody>
+              <tr><td>Message body content</td><td>Never stored. In-memory only, discarded within the job.</td></tr>
+              <tr><td>Mailbox credentials (OAuth tokens, app passwords)</td><td>Until you disconnect the mailbox or delete your account — then deleted immediately.</td></tr>
+              <tr><td>Deleted-message records (for undo)</td><td>7–90 days by plan, then removed. Deleted immediately if you delete the job.</td></tr>
+              <tr><td>Job history and rules</td><td>30 days to 3 years by plan, or until you delete them.</td></tr>
+              <tr><td>Account record</td><td>Until you delete your account.</td></tr>
+              <tr><td>Security and audit logs</td><td>Up to 30 days. Authentication audit entries up to 12 months.</td></tr>
+              <tr><td>Backups</td><td>Rolling, overwritten within 30 days.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>To delete everything:</strong> sign in and delete your account, or email <a href="mailto:privacy@emailcleaner.xyz">privacy@emailcleaner.xyz</a> from your registered address. Credentials are destroyed immediately and all remaining data within 30 days, backups included.</p>
+        <p>Deleting your Email Cleaner account does not delete anything in your actual mailbox.</p>
+
+        <h2 id="security">10. Security</h2>
+        <ul>
+          <li>All traffic is served over HTTPS with HSTS.</li>
+          <li>Credentials are encrypted at rest with AES-256-GCM; passwords are scrypt-hashed.</li>
+          <li>Two-factor authentication (TOTP) is available on every account and recommended.</li>
+          <li>Sign-in attempts are rate-limited and temporarily locked out after repeated failures.</li>
+          <li>Logs are scrubbed of secrets before being written.</li>
+          <li>The service runs as an unprivileged account with a read-only filesystem except for its own data directory.</li>
+        </ul>
+        <p>Details are on our <a href="/security">security page</a>. To report a vulnerability, email <a href="mailto:security@emailcleaner.xyz">security@emailcleaner.xyz</a>.</p>
+
+        <h2 id="sharing">11. Sharing and subprocessors</h2>
+        <p>We do not share your data with third parties for their own purposes. We rely on a small number of infrastructure providers strictly to operate the service:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Subprocessor</th><th scope="col">Purpose</th><th scope="col">Data involved</th></tr></thead>
+            <tbody>
+              <tr><td>Our hosting provider</td><td>Servers and storage</td><td>All stored data, encrypted at rest</td></tr>
+              <tr><td>Cloudflare</td><td>DNS</td><td>DNS queries only</td></tr>
+              <tr><td>Google LLC</td><td>Gmail API; optional reCAPTCHA</td><td>Mailbox access you granted; captcha signals</td></tr>
+              <tr><td>Microsoft Corporation</td><td>Microsoft Graph</td><td>Mailbox access you granted</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>We may disclose information where legally required, to enforce our terms, or to protect the rights and safety of users. If we are ever acquired, we will give notice before your data becomes subject to a different policy.</p>
+        <p>If bot protection is enabled on this deployment, the sign-in and registration pages load a captcha script from Google or Cloudflare, which processes your IP address and interaction signals under that provider's own privacy policy.</p>
+
+        <h2 id="rights">12. Your rights</h2>
+        <p>Depending on where you live, you may have the right to access, correct, delete, restrict or object to processing of your personal data, to data portability, and to withdraw consent. Residents of California have rights under the CCPA/CPRA, including the right to know and delete — and we confirm we do not sell or share personal information as those terms are defined.</p>
+        <p>Exercise any of these by emailing <a href="mailto:privacy@emailcleaner.xyz">privacy@emailcleaner.xyz</a> from your registered address. We respond within 30 days. You may also complain to your local data protection authority.</p>
+
+        <h2 id="transfers">13. International transfers</h2>
+        <p>Our servers are located in Europe. If you access the service from elsewhere, your data is transferred to and processed there. Where required, we rely on Standard Contractual Clauses or an adequacy decision for such transfers.</p>
+
+        <h2 id="children">14. Children</h2>
+        <p>The service is not directed to anyone under 16, and we do not knowingly collect their data. If you believe a child has given us personal data, contact us and we will delete it.</p>
+
+        <h2 id="changes">15. Changes to this policy</h2>
+        <p>We will update this page when our practices change and revise the "last updated" date. For material changes — particularly any change to what we access or how long we keep it — we will notify registered users by email at least 14 days before the change takes effect. Continued use after that date constitutes acceptance.</p>
+
+        <h2 id="contact">16. Contact</h2>
+        <p>
+          Privacy enquiries: <a href="mailto:privacy@emailcleaner.xyz">privacy@emailcleaner.xyz</a><br>
+          Security reports: <a href="mailto:security@emailcleaner.xyz">security@emailcleaner.xyz</a><br>
+          General support: <a href="mailto:support@emailcleaner.xyz">support@emailcleaner.xyz</a>
+        </p>
+        <p class="hint">Email Cleaner is an independent service and is not affiliated with, endorsed by or sponsored by Google LLC, Microsoft Corporation, Yahoo Inc. or Apple Inc.</p>
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>&copy; <span data-year>2026</span> Email Cleaner.</span>
+      <span class="cluster" style="--cluster-gap:1.25rem">
+        <a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/security">Security</a><a href="/">Home</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js" defer></script>
+</body>
+</html>

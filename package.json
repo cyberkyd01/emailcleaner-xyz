@@ -1,0 +1,44 @@
+{
+  "name": "email-cleaner",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hosted, provider-agnostic email cleaning service: bulk-clean mail folders and keyword-matched messages across Gmail, Outlook, Yahoo, Mail.com and any IMAP host.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "dev:worker": "tsx watch src/worker.ts",
+    "build": "tsc -p tsconfig.json && node scripts/copy-web.mjs",
+    "start": "node dist/src/index.js",
+    "start:worker": "node dist/src/worker.js",
+    "migrate": "tsx src/db/migrate.ts",
+    "keygen": "tsx src/scripts/keygen.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/static": "^8.1.1",
+    "better-sqlite3": "^11.10.0",
+    "cron-parser": "^4.9.0",
+    "fastify": "^5.3.2",
+    "imapflow": "^1.0.191",
+    "jose": "^6.0.11",
+    "kysely": "^0.27.6",
+    "pg": "^8.16.0",
+    "qrcode": "^1.5.4",
+    "zod": "^3.25.28"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^22.15.21",
+    "@types/pg": "^8.15.2",
+    "@types/qrcode": "^1.5.6",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
+  }
+}

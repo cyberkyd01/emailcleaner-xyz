@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Email Cleaner</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1d4ed8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1017" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header app-header">
+  <div class="container">
+    <a class="brand" href="/app"><span class="brand-mark" aria-hidden="true">✦</span><span>Email Cleaner</span></a>
+    <nav class="app-nav" aria-label="Sections">
+      <a href="/app">App</a>
+      <a href="/admin" aria-current="page">Admin</a>
+    </nav>
+    <span class="spacer"></span>
+    <span class="muted" id="refreshed" style="font-size:var(--step--1)"></span>
+    <button class="theme-toggle" type="button" aria-label="Switch colour theme" data-theme-toggle>◐</button>
+    <button class="btn btn-ghost btn-sm" id="refresh" type="button">Refresh</button>
+  </div>
+</header>
+
+<main id="main" class="container app-main viz-root">
+
+  <div class="note note-danger hidden" id="admin-error" role="alert"></div>
+
+  <h1 style="font-size:var(--step-2);margin-bottom:0.25rem">Operations dashboard</h1>
+  <p class="muted" style="font-size:var(--step--1);margin-bottom:1.5rem">
+    Aggregate and account-level metadata only. Message subjects, senders and content are never shown here.
+  </p>
+
+  <!-- KPI tiles ========================================================== -->
+  <section aria-labelledby="kpi-heading" style="margin-bottom:1.5rem">
+    <h2 id="kpi-heading" class="sr-only">Key figures</h2>
+    <div class="kpi-grid" id="kpis"></div>
+  </section>
+
+  <!-- Charts ============================================================= -->
+  <section class="admin-grid" aria-labelledby="charts-heading" style="margin-bottom:1.5rem">
+    <h2 id="charts-heading" class="sr-only">Trends</h2>
+
+    <div class="card">
+      <h3 style="font-size:var(--step-0);margin-bottom:0.15rem">New sign-ups</h3>
+      <p class="hint" style="margin-bottom:0.75rem">Last 30 days</p>
+      <div id="chart-signups"></div>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:var(--step-0);margin-bottom:0.15rem">Cleaning jobs started</h3>
+      <p class="hint" style="margin-bottom:0.75rem">Last 30 days</p>
+      <div id="chart-jobs"></div>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:var(--step-0);margin-bottom:0.15rem">Plan distribution</h3>
+      <p class="hint" style="margin-bottom:0.75rem">Users per plan, with estimated monthly revenue</p>
+      <div id="chart-plans"></div>
+    </div>
+  </section>
+
+  <!-- Health ============================================================= -->
+  <section class="card" style="margin-bottom:1.5rem">
+    <h2 style="font-size:var(--step-1);margin-bottom:0.75rem">Platform health</h2>
+    <div class="grid grid-4" id="health"></div>
+  </section>
+
+  <!-- Users ============================================================== -->
+  <section class="card" aria-labelledby="users-heading">
+    <h2 id="users-heading" style="font-size:var(--step-1);margin-bottom:0.15rem">Registered users</h2>
+    <p class="hint" style="margin-bottom:1rem">
+      Storage is an estimate of the bytes each account occupies in the application database.
+    </p>
+
+    <div class="filter-bar">
+      <input type="search" id="user-search" placeholder="Search email or name" aria-label="Search users">
+      <select id="plan-filter" aria-label="Filter by plan">
+        <option value="">All plans</option>
+        <option value="free">Free</option>
+        <option value="pro">Pro</option>
+        <option value="business">Business</option>
+      </select>
+      <select id="status-filter" aria-label="Filter by status">
+        <option value="">All statuses</option>
+        <option value="active">Active</option>
+        <option value="suspended">Suspended</option>
+      </select>
+      <span class="muted" id="user-count" style="font-size:var(--step--1);margin-left:auto"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table id="users-table">
+        <thead>
+          <tr>
+            <th scope="col">User</th>
+            <th scope="col">Plan</th>
+            <th scope="col">Activity</th>
+            <th scope="col" class="num">Mailboxes</th>
+            <th scope="col" class="num">Jobs 30d</th>
+            <th scope="col" class="num">Deleted</th>
+            <th scope="col" class="num">Storage</th>
+            <th scope="col">2FA</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="users-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Waitlist =========================================================== -->
+  <section class="card" id="waitlist" style="margin-top:1.5rem">
+    <div class="cluster" style="margin-bottom:0.25rem">
+      <h2 style="font-size:var(--step-1);margin:0">Access requests</h2>
+      <span class="badge badge-accent" id="waitlist-count">0</span>
+      <span style="flex:1"></span>
+      <a class="btn btn-sm btn-outline" href="/api/admin/waitlist.csv">Export CSV</a>
+    </div>
+    <p class="hint" style="margin-bottom:1rem">
+      Submitted from the public site while registration is closed. Each one is also emailed to you.
+    </p>
+    <div id="waitlist-plans" class="cluster" style="margin-bottom:1rem"></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">When</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Plan</th>
+            <th scope="col">Mailboxes</th>
+            <th scope="col">Message</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="waitlist-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Audit ============================================================== -->
+  <section class="card" style="margin-top:1.5rem">
+    <h2 style="font-size:var(--step-1);margin-bottom:1rem">Recent activity</h2>
+    <div class="table-wrap"><table><tbody id="audit-body"></tbody></table></div>
+  </section>
+
+</main>
+
+<div id="drawer-root"></div>
+
+<footer class="site-footer" style="padding-block:1.5rem">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>&copy; <span data-year>2026</span> Email Cleaner.</span>
+      <span class="cluster" style="--cluster-gap:1.25rem"><a href="/app">Back to app</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/admin.js" defer></script>
+</body>
+</html>

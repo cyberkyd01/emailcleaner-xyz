@@ -1,0 +1,69 @@
+# Postgres + API + a separate worker. For a single-node SQLite deployment, drop
+# the db and worker services and set DATABASE_URL=sqlite:/app/data/email-cleaner.sqlite
+# with RUN_WORKER_IN_PROCESS=true.
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: cleaner
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: cleaner
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U cleaner -d cleaner']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:?must match your OAuth redirect URIs}
+      DATABASE_URL: postgres://cleaner:${POSTGRES_PASSWORD}@db:5432/cleaner
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?run npm run keygen}
+      SESSION_SECRET: ${SESSION_SECRET:?run npm run keygen}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GOOGLE_SCOPE_LEVEL: ${GOOGLE_SCOPE_LEVEL:-modify}
+      MICROSOFT_CLIENT_ID: ${MICROSOFT_CLIENT_ID:-}
+      MICROSOFT_CLIENT_SECRET: ${MICROSOFT_CLIENT_SECRET:-}
+      MICROSOFT_TENANT: ${MICROSOFT_TENANT:-common}
+      MAX_DELETE_PER_JOB: ${MAX_DELETE_PER_JOB:-25000}
+      ALLOW_REGISTRATION: ${ALLOW_REGISTRATION:-true}
+      # Deletion work happens in the worker service below.
+      RUN_WORKER_IN_PROCESS: 'false'
+    ports:
+      - '${PORT:-8080}:8080'
+    restart: unless-stopped
+
+  worker:
+    build: .
+    command: ['node', 'dist/src/worker.js']
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL}
+      DATABASE_URL: postgres://cleaner:${POSTGRES_PASSWORD}@db:5432/cleaner
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      SESSION_SECRET: ${SESSION_SECRET}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GOOGLE_SCOPE_LEVEL: ${GOOGLE_SCOPE_LEVEL:-modify}
+      MICROSOFT_CLIENT_ID: ${MICROSOFT_CLIENT_ID:-}
+      MICROSOFT_CLIENT_SECRET: ${MICROSOFT_CLIENT_SECRET:-}
+      MICROSOFT_TENANT: ${MICROSOFT_TENANT:-common}
+      WORKER_CONCURRENCY: ${WORKER_CONCURRENCY:-2}
+    restart: unless-stopped
+
+volumes:
+  pgdata:
