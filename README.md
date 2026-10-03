@@ -2,6 +2,8 @@
 
 A hosted, provider-agnostic email cleaning service.
 
+> **Deploying to a server?** Follow the step-by-step VPS guide: **[DEPLOY.md](DEPLOY.md)**
+
 Two things it does:
 
 1. **Clean sections.** It detects which sections a mailbox actually has — Inbox,
@@ -69,6 +71,9 @@ npm run start:worker
 
 Set `DATABASE_URL=postgres://…` for Postgres. SQLite is the default and needs no
 setup; the schema is written to run unchanged on both.
+
+For a complete server setup (systemd services for the API and the worker, nginx,
+HTTPS, backups, updates with automatic rollback) follow [DEPLOY.md](DEPLOY.md).
 
 ---
 

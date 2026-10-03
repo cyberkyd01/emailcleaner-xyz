@@ -1,5 +1,7 @@
 # Deployment: emailcleaner.xyz
 
+> The canonical step-by-step VPS guide (Ubuntu/Debian, systemd, nginx, HTTPS) is **[DEPLOY.md](../DEPLOY.md)**. This file documents the existing openSUSE/Apache production host only.
+
 How this service is deployed on the production VPS, and what it deliberately
 does **not** touch.
 
