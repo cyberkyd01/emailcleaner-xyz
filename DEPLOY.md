@@ -114,10 +114,12 @@ This only adds packages; nothing is upgraded or removed. `python3`, `make` and `
 
 ```bash
 sudo bash -euo pipefail <<'EOF'
+export DEBIAN_FRONTEND=noninteractive NEEDRESTART_SUSPEND=1   # additive only: needrestart must not restart other services
 source /etc/emailcleaner/deploy.conf
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y --no-install-recommends ca-certificates curl git openssh-client xz-utils openssl sqlite3 python3 make g++ </dev/null
+MISSING_PKGS=""; for p in ca-certificates curl git openssh-client xz-utils openssl sqlite3 python3 make g++; do dpkg-query -W -f='${Status}' "$p" 2>/dev/null | grep -q 'ok installed' || MISSING_PKGS="$MISSING_PKGS $p"; done
+if [ -n "$MISSING_PKGS" ]; then apt-get install -y --no-install-recommends $MISSING_PKGS </dev/null; fi   # only what's missing - never upgrades installed packages
 echo "OK: packages installed"
 EOF
 ```
@@ -344,6 +346,7 @@ Skip this unless you want PostgreSQL. It creates a dedicated `emailcleaner` role
 
 ```bash
 sudo bash -euo pipefail <<'EOF'
+export DEBIAN_FRONTEND=noninteractive NEEDRESTART_SUSPEND=1   # additive only: needrestart must not restart other services
 source /etc/emailcleaner/deploy.conf
 ENV="$APP_HOME/shared/.env"
 if grep -q '^DATABASE_URL=postgres' "$ENV"; then echo "Already using PostgreSQL, nothing to do"; exit 0; fi
@@ -547,6 +550,7 @@ Progress updates reach the browser through server-sent events. The app sends `X-
 
 ```bash
 sudo bash -euo pipefail <<'EOF'
+export DEBIAN_FRONTEND=noninteractive NEEDRESTART_SUSPEND=1   # additive only: needrestart must not restart other services
 source /etc/emailcleaner/deploy.conf
 WEB=$(ss -ltnpH '( sport = :80 or sport = :443 )' | grep -oE 'users:\(\("[^"]+"' | cut -d'"' -f2 | sort -u | tr '\n' ' ')
 case "$WEB" in ""|"nginx ") ;; *) echo "STOP: ports 80/443 belong to: $WEB. Use the Appendix instead of nginx."; exit 1 ;; esac
@@ -605,6 +609,7 @@ If your cloud provider has its own firewall (security groups, e.g. on AWS, Oracl
 
 ```bash
 sudo bash -euo pipefail <<'EOF'
+export DEBIAN_FRONTEND=noninteractive NEEDRESTART_SUSPEND=1   # additive only: needrestart must not restart other services
 source /etc/emailcleaner/deploy.conf
 [ -n "$DOMAIN" ] || { echo "No DOMAIN set: no-domain mode, skip this step."; exit 0; }
 [ -n "$EMAIL" ] || { echo "STOP: set EMAIL in /etc/emailcleaner/deploy.conf"; exit 1; }
@@ -911,7 +916,7 @@ Then enable it and get the certificate. `a2enmod` makes no change if a module is
 sudo a2enmod proxy proxy_http headers
 sudo a2ensite emailcleaner
 sudo apache2ctl configtest && sudo systemctl reload apache2
-sudo apt-get install -y --no-install-recommends certbot python3-certbot-apache
+sudo env DEBIAN_FRONTEND=noninteractive NEEDRESTART_SUSPEND=1 apt-get install -y --no-install-recommends certbot python3-certbot-apache
 sudo certbot --apache -d clean.example.com --non-interactive --agree-tos -m you@example.com --redirect
 ```
 
