@@ -346,3 +346,11 @@ including refusing to delete anything it cannot prove matched.
   cause of connection timeouts.
 - **Proton Mail** only works through a locally running Proton Mail Bridge, which
   rules it out for shared hosting.
+
+---
+
+## ⭐ Support
+
+Please give stars and if possible Buy me a coffee (USDT-TRC20) - `TA216k3WgWTrKnUKxZrSDNGzSJj3eHtEcH`
+
+Telegram: [@Cyberkyd](https://t.me/Cyberkyd)
