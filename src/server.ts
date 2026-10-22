@@ -131,11 +131,11 @@ export async function buildServer(): Promise<FastifyInstance> {
     prefix: '/',
     index: false,
     cacheControl: false,
-    setHeaders(res, path) {
+    setHeaders(reply, path) {
       // Fingerprinting is not in place yet, so assets get a short cache with a
       // long stale window rather than an immutable year.
       if (/\.(css|js|svg|woff2?|png|jpg|webp)$/.test(path)) {
-        res.setHeader('cache-control', 'public, max-age=3600, stale-while-revalidate=86400');
+        reply.header('cache-control', 'public, max-age=3600, stale-while-revalidate=86400');
       }
     },
   });
